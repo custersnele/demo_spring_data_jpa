@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Transactional
     public List<String> getBooksByAuthor(String authorName) {
         LOGGER.info("Starting getBooksByAuthor");
         Author author = authorRepository.findAuthorByName(authorName).orElseThrow(() -> new NotFoundException(""));
@@ -38,11 +40,13 @@ public class BookService {
         return author.getBooks().stream().map(Book::getTitle).toList();
     }
 
+    @Transactional
     public Page<BookDto> findAllBooks(Pageable pageable) {
         Page<Book> books = bookRepository.findAll(pageable);
         return books.map(this::mapToBookDto);
     }
 
+    @Transactional
     public List<BookDto> searchBooks(FilterDto filter) {
         return bookRepository.findAll(createBookSpecification(filter))
                 .stream()
