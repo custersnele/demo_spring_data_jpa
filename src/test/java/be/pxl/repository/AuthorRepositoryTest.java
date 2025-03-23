@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AuthorRepositoryTest {
 
 	@PersistenceContext
-	protected EntityManager entityManager;
+	private EntityManager entityManager;
 
 	@Autowired
 	private AuthorRepository authorRepository;
@@ -31,13 +32,13 @@ public class AuthorRepositoryTest {
 
 	@BeforeEach
 	public void init() {
-		authorRepository.saveAll(Arrays.asList(author1, author2));
+		authorRepository.saveAll(List.of(author1, author2));
 		entityManager.flush();
 		entityManager.clear();
 	}
 
 	@Test
-	public void returnsAuthorByName() {
+	public void returnsAuthorWithGivenName() {
 		Optional<Author> author = authorRepository.findAuthorByName("Famous Author");
 
 		assertTrue(author.isPresent());
@@ -45,7 +46,7 @@ public class AuthorRepositoryTest {
 	}
 
 	@Test
-	public void returnsEmptyOptionalWhenNoFootballPlayerWithEmail() {
+	public void returnsEmptyOptionalWhenNoAuthorWithGivenName() {
 		Optional<Author> author = authorRepository.findAuthorByName("Bestseller Author");
 
 		assertTrue(author.isEmpty());
