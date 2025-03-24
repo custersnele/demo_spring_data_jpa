@@ -41,7 +41,7 @@ public class BookService {
         return author.getBooks().stream().map(Book::getTitle).toList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<BookDto> findAllBooks(Pageable pageable) {
         Page<Book> books = bookRepository.findAll(pageable);
         return books.map(this::mapToBookDto);

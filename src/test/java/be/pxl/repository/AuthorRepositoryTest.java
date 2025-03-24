@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DataJpaTest
 public class AuthorRepositoryTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private TestEntityManager testEntityManager;
 
 	@Autowired
 	private AuthorRepository authorRepository;
@@ -33,8 +34,8 @@ public class AuthorRepositoryTest {
 	@BeforeEach
 	public void init() {
 		authorRepository.saveAll(List.of(author1, author2));
-		entityManager.flush();
-		entityManager.clear();
+		testEntityManager.flush();
+		testEntityManager.clear();
 	}
 
 	@Test
