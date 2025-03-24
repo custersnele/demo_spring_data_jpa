@@ -22,10 +22,7 @@ public class ImportData implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		LOGGER.info("Importing testdata...");
-
-
 		organizationRepository.save(new Organisation("Happy Organisation"));
-
 	}
 }
 

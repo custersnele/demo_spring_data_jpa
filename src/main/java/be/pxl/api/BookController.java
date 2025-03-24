@@ -5,10 +5,7 @@ import be.pxl.api.data.FilterDto;
 import be.pxl.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,10 @@ public class BookController {
     @GetMapping
     public Page<BookDto> getBooks(Pageable pageable) {
         return bookService.findAllBooks(pageable);
+    }
+
+    @PostMapping("task")
+    public void invokeTimeConsumingTask() {
+        bookService.doTimeConsumingTask();
     }
 }

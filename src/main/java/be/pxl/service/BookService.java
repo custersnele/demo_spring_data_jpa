@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,24 @@ public class BookService {
     public Page<BookDto> findAllBooks(Pageable pageable) {
         Page<Book> books = bookRepository.findAll(pageable);
         return books.map(this::mapToBookDto);
+    }
+
+    @Transactional
+    public void doTimeConsumingTask() {
+        System.out.println("Waiting for a time-consuming task that doesn't need a database connection ...");
+        try {
+            Thread.sleep(40000);
+            System.out.println("Done, now query the database ...");
+            System.out.println("The database connection should be acquired now ...");
+            Book book = bookRepository.findById(1L).orElse(null);
+            // at this point, the connection should be open
+            Thread.sleep(40000);
+            if (book != null) {
+                book.setTitle(LocalDateTime.now().toString());
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Transactional

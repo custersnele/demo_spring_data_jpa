@@ -11,7 +11,7 @@ INSERT INTO books (title, category) VALUES ('Whispers of the Ancient', 'HISTORY'
 INSERT INTO books (title, category) VALUES ('The Last Ember', 'HISTORY');
 INSERT INTO books (title, category) VALUES ('Beneath the Starless Sky', 'SCIENCE');
 INSERT INTO books (title, category) VALUES ('Echoes of the Forgotten', 'HISTORY');
-INSERT INTO books (title, category) VALUES ('The Glass Fortress', 'NON-FICTION');
+INSERT INTO books (title, category) VALUES ('The Glass Fortress', 'NON_FICTION');
 INSERT INTO books (title, category) VALUES ('The Chronosmith Chronicles', 'SCIENCE');
 INSERT INTO books (title, category) VALUES ('River of Shadows', 'FICTION');
 INSERT INTO books (title, category) VALUES ('Midnight’s Veil', 'FICTION');
